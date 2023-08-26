@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, FlatList, Alert, Text, Button } from "react-native";
 import { UserContact, CreateUser, InsertContact, Loading, ErrorMassage } from "../components";
-import { collection, query, limit, where } from "firebase/firestore";
+import { collection, query, limit, where, getDoc, onSnapshot } from "firebase/firestore";
 import app from "../database/firebase";
 
 
