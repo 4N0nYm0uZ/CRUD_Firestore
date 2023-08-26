@@ -7,19 +7,19 @@ import app from "../database/firebase";
 
 const Home = ({ navigation }) => {
     //! useState
-    const [data, setData] = React.useState({});
-    const [loading, setLoading] = React.useState(false);
-    const [errorMassage, setErrorMassage] = React.useState(false);
-    const [findParams, setFindParams] = React.useState("");
+    const [data, setData] = React.useState({})
+    const [loading, setLoading] = React.useState(false)
+    const [errorMassage, setErrorMassage] = React.useState(false)
+    const [findParams, setFindParams] = React.useState("")
 
     //! GET Data
-    const getData = () => { };
+    const getData = () => { }
 
     //! Insert Data
-    const onFind = () => { };
+    const onFind = () => { }
 
     //! Delete Data
-    const onDelete = (id) => { };
+    const onDelete = (id) => { }
 
     // React.useEffect(() => {
     //     getData();
