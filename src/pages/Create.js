@@ -2,9 +2,6 @@ import React from "react";
 import { StyleSheet, Text, View, Button, Alert, TextInput } from "react-native";
 import { collection, query, limit, where } from "firebase/firestore";
 import app from "../database/firebase";
-// import "react-native-get-random-values";
-// import { nanoid } from "nanoid";
-
 
 const Create = ({ navigation: { goBack } }) => {
 
