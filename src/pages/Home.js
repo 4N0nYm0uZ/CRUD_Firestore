@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, View, FlatList, Alert, Text, Button } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
+import { onSnapshot, collection } from "firebase/firestore";
+import Db from "../database/firebase";
 import { UserContact, CreateUser, InsertContact, Loading, ErrorMassage } from "../components";
 import CrudFunction from "../database/crudFuction";
 
@@ -8,7 +10,7 @@ import CrudFunction from "../database/crudFuction";
 const Home = ({ navigation }) => {
     //! useState
     const isFocus = useIsFocused()
-    const [data, setData] = React.useState({})
+    const [data, setData] = React.useState([])
     const [loading, setLoading] = React.useState(false)
     const [errorMassage, setErrorMassage] = React.useState(false)
     const [findParams, setFindParams] = React.useState("")
@@ -49,7 +51,15 @@ const Home = ({ navigation }) => {
     }
 
     React.useEffect(() => {
-        getData();
+        const colRef = collection(Db, "contact");
+        const unsubscribe = onSnapshot(colRef, async () => {
+            await getData()
+        });
+
+        return () => {
+            unsubscribe()
+        }
+
     }, [isFocus]);
 
 
