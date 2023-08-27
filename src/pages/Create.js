@@ -1,19 +1,29 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, Alert, TextInput } from "react-native";
-import { collection, query, limit, where } from "firebase/firestore";
-import app from "../database/firebase";
-// import "react-native-get-random-values";
-// import { nanoid } from "nanoid";
-
+import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import Loading from "../components/Atom/Loading";
+import moment from "moment-timezone";
+import CrudFunction from "../database/crudFuction";
 
 const Create = ({ navigation: { goBack } }) => {
 
     //! useState
     const [name, setName] = React.useState("");
     const [number, setNumber] = React.useState("");
+    const [loading, setLoading] = React.useState(false);
 
     //! ADD Data
-    const add = () => { }
+    const add = async () => { 
+        setLoading(true)
+
+        await CrudFunction.addData("contact", {
+            nama  : name,
+            nomor : number,
+            createdAt : moment().tz("Asia/Jakarta").format("DD/MM/YY.HH:mm:ss")
+        })
+
+        setLoading(false)
+        goBack()
+    }
 
 
     return (
@@ -40,6 +50,7 @@ const Create = ({ navigation: { goBack } }) => {
             <View style={styles.btn}>
                 <Button title="Create" color="green" onPress={() => add()} />
             </View>
+            <Loading visible={loading} />
         </View>
     );
 };

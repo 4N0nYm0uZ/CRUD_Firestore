@@ -1,53 +1,92 @@
 import React from "react";
 import { StyleSheet, View, FlatList, Alert, Text, Button } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 import { UserContact, CreateUser, InsertContact, Loading, ErrorMassage } from "../components";
-import { collection, query, limit, where, getDoc, onSnapshot } from "firebase/firestore";
-import app from "../database/firebase";
+import CrudFunction from "../database/crudFuction";
 
 
 const Home = ({ navigation }) => {
     //! useState
+    const isFocus = useIsFocused()
     const [data, setData] = React.useState({})
     const [loading, setLoading] = React.useState(false)
     const [errorMassage, setErrorMassage] = React.useState(false)
     const [findParams, setFindParams] = React.useState("")
 
     //! GET Data
-    const getData = () => { }
+    const getData = async () => {
+        setLoading(true)
+
+        try {
+            const data = await CrudFunction.fetchData("contact")
+            setData(data)
+            
+        } catch (error) {
+            setErrorMassage(error.message)
+        }
+
+        setLoading(false)
+    }
 
     //! Insert Data
-    const onFind = () => { }
+    const onFind = async () => { 
+        const search = await CrudFunction.search("contact", "nama", findParams)
+        setData(search)
+    }
 
     //! Delete Data
-    const onDelete = (id) => { }
+    const onDelete = async (id) => { 
+        await CrudFunction.deleteData("contact", id)
+        getData()
+    }
 
-    // React.useEffect(() => {
-    //     getData();
-    // }, []);
+    const setKeywords = (keywords) => {
+        if(keywords === "") {
+            getData()
+        }
+
+        setFindParams(keywords)
+    }
+
+    React.useEffect(() => {
+        getData();
+    }, [isFocus]);
 
 
     return (
         <View style={styles.container}>
             <View style={styles.search}>
                 <InsertContact
-                // onPress={onFind}
-                // find={findParams}
-                // onFind={setFindParams}
+                    onPress={onFind}
+                    find={findParams}
+                    onFind={setKeywords}
                 />
             </View>
 
-            <UserContact
-                nomor={"088253695"}
-                nama={"slamet sulistyo"}
-                // onDelete={() => onDelete(item.id)}
-                onPress={() =>
-                    navigation.navigate("Update", {
-                        name: "slamet sulistyo",
-                        number: "088253695",
-                        id: 1,
+            {  
+                data.length > 0 ?
+                    data.map((contact, i) => {
+                        return (
+                            <UserContact
+                                key={i}
+                                nomor={contact.nomor}
+                                nama={contact.nama}
+                                onDelete={() => onDelete(contact.id)}
+                                onPress={() =>
+                                    navigation.navigate("Update", {
+                                        nama: contact.nama,
+                                        nomor: contact.nomor,
+                                        id: contact.id,
+                                    })
+                                }
+                            />
+                        )
                     })
-                }
-            />
+                :
+                    <View style={{ flex:1, alignItems:"center", margin:10 }}>
+                        <Text>Data belum tersedia !</Text>
+                    </View>
+            }
 
             <CreateUser onPress={() => navigation.navigate("Create")} />
             {loading && <Loading />}

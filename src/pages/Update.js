@@ -1,19 +1,26 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, Alert, TextInput } from "react-native";
-import { collection, query, limit, where } from "firebase/firestore";
-import app from "../database/firebase";
+import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 import Loading from "../components/Atom/Loading";
-
+import CrudFunction from "../database/crudFuction";
 
 const Update = ({ navigation: { goBack }, route: { params } }) => {
-
     //! useState
-    const [name, setName] = React.useState(params?.name);
-    const [number, setNumber] = React.useState(params?.number);
+    const [name, setName] = React.useState(params?.nama);
+    const [number, setNumber] = React.useState(params?.nomor);
     const [loading, setLoading] = React.useState(false);
 
     //! Update Data
-    const onUpdate = () => { };
+    const onUpdate = async () => {
+        setLoading(true)
+
+        await CrudFunction.updateData("contact", params.id, {
+            nama : name,
+            nomor : number
+        })
+
+        setLoading(false)
+        goBack()
+    };
 
     return (
         <View style={styles.container}>
