@@ -3,15 +3,23 @@ import Db from "./firebase";
 
 const CrudFunction = {
     fetchDataArray: async (tb) => {
-        const q = query(collection(Db, tb), orderBy('createdAt', 'desc'));
+        const q = query(
+            collection(Db, tb),
+            orderBy('createdAt', 'desc')
+        );
+
         const snapshot = await getDocs(q);
         const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
         return data
     },
 
-    fetchDataObject: async (tb) => {
-        const q = query(collection(Db, tb),);
+    fetchDataObject: async (tb, id) => {
+        const q = query(
+            collection(Db, tb),
+            where("uid", "==", id)
+        );
+
         const snapshot = await getDocs(q);
         const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
