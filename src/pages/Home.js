@@ -11,18 +11,17 @@ const Home = ({ navigation }) => {
     //! useState
     const isFocus = useIsFocused()
     const [data, setData] = React.useState([])
-    const [loading, setLoading] = React.useState(false)
+    const [loading, setLoading] = React.useState(true)
     const [errorMassage, setErrorMassage] = React.useState(false)
     const [findParams, setFindParams] = React.useState("")
 
     //! GET Data
     const getData = async () => {
-        setLoading(true)
 
         try {
-            const data = await CrudFunction.fetchData("contact")
+            const data = await CrudFunction.fetchDataArray("contact")
             setData(data)
-            
+
         } catch (error) {
             setErrorMassage(error.message)
         }
@@ -31,19 +30,19 @@ const Home = ({ navigation }) => {
     }
 
     //! Insert Data
-    const onFind = async () => { 
+    const onFind = async () => {
         const search = await CrudFunction.search("contact", "nama", findParams)
         setData(search)
     }
 
     //! Delete Data
-    const onDelete = async (id) => { 
+    const onDelete = async (id) => {
         await CrudFunction.deleteData("contact", id)
         getData()
     }
 
     const setKeywords = (keywords) => {
-        if(keywords === "") {
+        if (keywords === "") {
             getData()
         }
 
@@ -73,7 +72,7 @@ const Home = ({ navigation }) => {
                 />
             </View>
 
-            {  
+            {
                 data.length > 0 ?
                     data.map((contact, i) => {
                         return (
@@ -92,8 +91,8 @@ const Home = ({ navigation }) => {
                             />
                         )
                     })
-                :
-                    <View style={{ flex:1, alignItems:"center", margin:10 }}>
+                    :
+                    <View style={{ flex: 1, alignItems: "center", margin: 10 }}>
                         <Text>Data belum tersedia !</Text>
                     </View>
             }
