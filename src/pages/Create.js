@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 import Loading from "../components/Atom/Loading";
 import moment from "moment-timezone";
 import CrudFunction from "../database/crudFuction";
+import "react-native-get-random-values";
+import { nanoid } from "nanoid";
 
 const Create = ({ navigation: { goBack } }) => {
 
@@ -12,13 +14,14 @@ const Create = ({ navigation: { goBack } }) => {
     const [loading, setLoading] = React.useState(false);
 
     //! ADD Data
-    const add = async () => { 
+    const add = async () => {
         setLoading(true)
 
         await CrudFunction.addData("contact", {
-            nama  : name,
-            nomor : number,
-            createdAt : moment().tz("Asia/Jakarta").format("DD/MM/YY.HH:mm:ss")
+            uid: nanoid(24),
+            nama: name,
+            nomor: number,
+            createdAt: moment().tz("Asia/Jakarta").format("DD/MM/YY.HH:mm:ss")
         })
 
         setLoading(false)
