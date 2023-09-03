@@ -19,7 +19,7 @@ const Home = ({ navigation }) => {
     const getData = async () => {
 
         try {
-            const data = await CrudFunction.fetchDataArray("contact")
+            const data = await CrudFunction.fetchDataCol("contact")
             setData(data)
 
         } catch (error) {

@@ -1,10 +1,10 @@
-import { query, getDocs, collection, addDoc, doc, updateDoc, deleteDoc, orderBy, where } from "firebase/firestore";
+import { query, getDocs, collection, addDoc, doc, updateDoc, deleteDoc, orderBy, where, setDoc, getDoc } from "firebase/firestore";
 import Db from "./firebase";
 
 const CrudFunction = {
-    fetchDataArray: async (tb) => {
+    fetchDataCol: async (col) => {
         const q = query(
-            collection(Db, tb),
+            collection(Db, col),
             orderBy('createdAt', 'desc')
         );
 
@@ -14,41 +14,42 @@ const CrudFunction = {
         return data
     },
 
-    fetchDataObject: async (tb, id) => {
-        const q = query(
-            collection(Db, tb),
-            where("uid", "==", id)
-        );
+    // ! Ini Untuk Fetch Data di folder Document harus di halamanya langsung
+    // const fetchDataDoc = async (col, doc) => {
+    //     const docRef = doc(Db, col, doc);
+    //     const docSnap = await getDoc(docRef);
 
-        const snapshot = await getDocs(q);
-        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    //     if (docSnap.exists()) {
+    //         const userData = docSnap.data()
+    //         return userData
+    //     } else {
+    //         console.log('No such document!');
+    //         return null;
+    //     }
+    // },
 
-        const res = {};
-        data.forEach(obj => {
-            for (key in obj) {
-                res[key] = obj[key];
-            };
-        });
-
-        return res
+    addDataCol: async (col, data) => {
+        const itemRef = collection(Db, col)
+        return await addDoc(itemRef, data);
     },
 
-    addData: async (tb, data) => {
-        return await addDoc(collection(Db, tb), data);
+    addDataDoc: async (col1, doc1, col2, doc2, data) => {
+        const itemRef = doc(Db, col1, doc1, col2, doc2);
+        return await setDoc(itemRef, data);
     },
 
-    updateData: async (tb, id, data) => {
-        const itemRef = doc(Db, tb, id);
+    updateData: async (col, id, data) => {
+        const itemRef = doc(Db, col, id);
         return await updateDoc(itemRef, data);
     },
 
-    deleteData: async (tb, id) => {
-        const itemRef = doc(Db, tb, id);
+    deleteData: async (col, id) => {
+        const itemRef = doc(Db, col, id);
         return await deleteDoc(itemRef);
     },
 
-    search: async (tb, field, keyword) => {
-        const q = query(collection(Db, tb), where(field, '==', keyword));
+    search: async (col, field, keyword) => {
+        const q = query(collection(Db, col), where(field, '==', keyword));
         const snapshot = await getDocs(q);
         const results = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         return results;
