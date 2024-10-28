@@ -17,7 +17,7 @@ const Create = ({ navigation: { goBack } }) => {
     const add = async () => {
         setLoading(true)
 
-        await CrudFunction.addData("contact", {
+        await CrudFunction.addDataCol("contact", {
             uid: nanoid(24),
             nama: name,
             nomor: number,
