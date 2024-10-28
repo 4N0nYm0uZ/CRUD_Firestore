@@ -1,5 +1,9 @@
 {
   "expo": {
+    "plugins": [
+      "@react-native-firebase/app-check",
+      "@react-native-firebase/app"
+    ],
     "name": "CRUD_Firestore",
     "slug": "CRUD_Firestore",
     "version": "1.0.0",
@@ -19,12 +23,19 @@
     },
     "android": {
       "adaptiveIcon": {
+        "googleServicesFile": "./google-services.json",
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.CRUD"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "afcfe3ef-697a-44b4-8fa1-12eade458664"
+      }
     }
   }
 }

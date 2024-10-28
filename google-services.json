@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "900715653086",
+    "project_id": "contactapp-72c11",
+    "storage_bucket": "contactapp-72c11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900715653086:android:6dd7c7e11298e615835f4f",
+        "android_client_info": {
+          "package_name": "com.CRUD"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCncTfgk7skGJ6Hkg4Ggb5LHdJ319rQeIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
