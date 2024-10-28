@@ -14,19 +14,18 @@ const CrudFunction = {
         return data
     },
 
-    // ! Ini Untuk Fetch Data di folder Document harus di halamanya langsung
-    // const fetchDataDoc = async (col, doc) => {
-    //     const docRef = doc(Db, col, doc);
-    //     const docSnap = await getDoc(docRef);
+    fetchDataDoc: async (col, doc) => {
+        const docRef = doc(Db, col, doc);
+        const docSnap = await getDoc(docRef);
 
-    //     if (docSnap.exists()) {
-    //         const userData = docSnap.data()
-    //         return userData
-    //     } else {
-    //         console.log('No such document!');
-    //         return null;
-    //     }
-    // },
+        if (docSnap.exists()) {
+            const userData = docSnap.data()
+            return userData
+        } else {
+            console.log('No such document!');
+            return null;
+        }
+    },
 
     addDataCol: async (col, data) => {
         const itemRef = collection(Db, col)

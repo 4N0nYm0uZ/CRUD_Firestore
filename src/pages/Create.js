@@ -21,7 +21,7 @@ const Create = ({ navigation: { goBack } }) => {
             uid: nanoid(24),
             nama: name,
             nomor: number,
-            createdAt: moment().tz("Asia/Jakarta").format("DD/MM/YY.HH:mm:ss")
+            createdAt: moment().tz("Asia/Jakarta").format("YY/MM/DD HH:mm:ss")
         })
 
         setLoading(false)
