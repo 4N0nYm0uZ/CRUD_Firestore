@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { initializeFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD8qwGAkLm1kTPS1HJ2Y3R9NuBBz3UuysY",
-    authDomain: "crud-firestore-71c9c.firebaseapp.com",
-    projectId: "crud-firestore-71c9c",
-    storageBucket: "crud-firestore-71c9c.appspot.com",
-    messagingSenderId: "849824097005",
-    appId: "1:849824097005:web:f9a30789537e8df99b22e4",
-    measurementId: "G-T2T1QYZSCD"
+    apiKey: "AIzaSyBYO7RdR2aJdd1ePqxcxgo05S-4pP0m43I",
+    authDomain: "contactapp-72c11.firebaseapp.com",
+    projectId: "contactapp-72c11",
+    storageBucket: "contactapp-72c11.appspot.com",
+    messagingSenderId: "900715653086",
+    appId: "1:900715653086:web:d76bc833648f3b2a835f4f",
+    measurementId: "G-4DWJDCXXBN"
 };
 
 // Initialize Firebase
